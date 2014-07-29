@@ -33,33 +33,32 @@ QT_END_NAMESPACE
 extern int convertmode;
 
 /**
-  Bitcoin GUI main class. This class represents the main window of the Bitcoin UI. It communicates with both the client and
-  wallet models to give the user an up-to-date view of the current core state.
+Bitcoin GUI main class. This class represents the main window of the Bitcoin UI. It communicates with both the client and
+wallet models to give the user an up-to-date view of the current core state.
 */
-class BitcoinGUI : public QMainWindow
-{
+class BitcoinGUI : public QMainWindow {
     Q_OBJECT
-public:
+  public:
     explicit BitcoinGUI(QWidget *parent = 0);
     ~BitcoinGUI();
 
     /** Set the client model.
-        The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
+    The client model represents the part of the core that communicates with the P2P network, and is wallet-agnostic.
     */
     void setClientModel(ClientModel *clientModel);
     /** Set the wallet model.
-        The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
-        functionality.
+    The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
+    functionality.
     */
     void setWalletModel(WalletModel *walletModel);
 
-protected:
+  protected:
     void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 
-private:
+  private:
     ClientModel *clientModel;
     WalletModel *walletModel;
 
@@ -84,7 +83,11 @@ private:
     QLabel *labelStakingIcon;
     QLabel *labelConnectionsIcon;
     QLabel *labelBlocksIcon;
-    QAction *actionConvertIcon;
+    QAction *actionConvertCurrency;
+    QAction *actionFacebook;
+    QAction *actionTwitter;
+    QAction *actionReddit;
+    QLabel *labelHomepage;
     QLabel *progressBarLabel;
     QProgressBar *progressBar;
 
@@ -96,6 +99,7 @@ private:
     QAction *chatAction;
     QAction *historyAction;
     QAction *quitAction;
+    QAction *exitAction;
     QAction *settingsAction;
     QAction *sendAction;
     QAction *sendCoinsAction;
@@ -106,7 +110,7 @@ private:
     QAction *verifyMessageAction2;
     QAction *aboutSettingsAction;
     QAction *tutoStackAction;
-    QAction *tutoStackAction2;
+    QAction *actionHowToStake;
     QAction *tutoWriteAction;
     QAction *aboutAction;
     QAction *hideAction;
@@ -117,10 +121,9 @@ private:
     QAction *encryptWalletAction;
     QAction *backupWalletAction;
     QAction *changePassphraseAction;
-    QAction *unlockWalletAction;
-    QAction *lockWalletAction;
-    QAction *unlockWalletAction2;
-    QAction *lockWalletAction2;
+    QAction *actionLockUnlockWallet_Toolbar;
+    QAction *actionLockUnlockWallet_ActionScreen;
+    QAction *actionSendReceive;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
     QAction *openRPCConsoleAction2;
@@ -147,38 +150,38 @@ private:
     int m_nMouseClick_X_Coordinate;
     int m_nMouseClick_Y_Coordinate;
 
-public slots:
+  public slots:
     /** Set number of connections shown in the UI */
     void setNumConnections(int count);
     /** Set number of blocks shown in the UI */
     void setNumBlocks(int count, int nTotalBlocks);
     /** Set the encryption status as shown in the UI.
-       @param[in] status            current encryption status
-       @see WalletModel::EncryptionStatus
+    @param[in] status            current encryption status
+    @see WalletModel::EncryptionStatus
     */
     void setEncryptionStatus(int status);
 
     /** Notify the user of an error in the network or transaction handling code. */
     void error(const QString &title, const QString &message, bool modal);
     /** Asks the user whether to pay the transaction fee or to cancel the transaction.
-       It is currently not possible to pass a return value to another thread through
-       BlockingQueuedConnection, so an indirected pointer is used.
-       https://bugreports.qt-project.org/browse/QTBUG-10440
+    It is currently not possible to pass a return value to another thread through
+    BlockingQueuedConnection, so an indirected pointer is used.
+    https://bugreports.qt-project.org/browse/QTBUG-10440
 
-      @param[in] nFeeRequired       the required fee
-      @param[out] payFee            true to pay the fee, false to not pay the fee
+    @param[in] nFeeRequired       the required fee
+    @param[out] payFee            true to pay the fee, false to not pay the fee
     */
     void askFee(qint64 nFeeRequired, bool *payFee);
     void handleURI(QString strURI);
 
-private slots:
+  private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     /** Switch to statistics page*/
     void gotoStatisticsPage();
     /** Switch to block explorer*/
     void gotoBlockBrowser();
-	    /** Switch to block explorer*/
+    /** Switch to block explorer*/
     void gotoPoolBrowser();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
@@ -188,7 +191,6 @@ private slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
-    void gotoChatPage();
     void gotoSettingsPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
@@ -208,7 +210,7 @@ private slots:
 #endif
     /** Show incoming transaction notification for new transactions.
 
-        The new items are those between start and end inclusive, under the given parent item.
+    The new items are those between start and end inclusive, under the given parent item.
     */
     void incomingTransaction(const QModelIndex & parent, int start, int end);
     /** Encrypt the wallet */
@@ -217,19 +219,23 @@ private slots:
     void backupWallet();
     /** Change encrypted wallet passphrase */
     void changePassphrase();
-    /** Ask for passphrase to unlock wallet temporarily */
-    void unlockWallet();
-    void unlockWallet2();
 
-    void lockWallet();
+    /** Ask for passphrase to unlock wallet temporarily */
+    void lockUnlockWallet(void);
 
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
-    void showNormalIfMinimized(bool fToggleHidden = false);
+    void showNormalIfMinimized(bool toTray = false, bool isToggle = false);
+
     /** simply calls showNormalIfMinimized(true) for use in SLOT() macro */
     void toggleHidden();
+    void quitApplication();
 
     void updateStakingIcon();
     void sConvert();
+
+    void openFacebook();
+    void openTwitter();
+    void openReddit();
 };
 
 #endif
