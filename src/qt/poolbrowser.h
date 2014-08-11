@@ -45,12 +45,17 @@ class PoolBrowser : public QWidget {
     void bittrexMarketSummary(QNetworkReply* response);
     void bittrexTrades(QNetworkReply* response);
     void bittrexOrders(QNetworkReply* response);
-    void cryptsyTrades(QNetworkReply* response);
-    void cryptsyOrders(QNetworkReply* response);
     void mintpalMarketSummary(QNetworkReply* response);
     void mintpalTrades(QNetworkReply* response);
     void mintpalOrdersSell(QNetworkReply* response);
     void mintpalOrdersBuy(QNetworkReply* response);
+    void poloniexMarketSummary(QNetworkReply* response);
+    void poloniexTrades(QNetworkReply* response);
+    void poloniexOrders(QNetworkReply* response);
+    void poloniexVolume(QNetworkReply* response);
+    void poloniex24hVolume (QNetworkReply* response);
+    void cryptsyTrades(QNetworkReply* response);
+    void cryptsyOrders(QNetworkReply* response);
 
     const mValue& getPairValue(const mObject& obj, const string& name);
 
@@ -73,10 +78,11 @@ class PoolBrowser : public QWidget {
     void on_btnUpdateMarketData_clicked();
 
     void on_lblBittrexMarketLink_linkActivated(const QString &link);
-    void on_lblCryptsyMarketLink_linkActivated(const QString &link);
     void on_lblMintpalMarketLink_linkActivated(const QString &link);
+    void on_lblPoloniexMarketLink_linkActivated(const QString &link);
+    void on_lblCryptsyMarketLink_linkActivated(const QString &link);
 
-private:
+  private:
     QNetworkAccessManager m_nam;
     Ui::PoolBrowser* ui;
     ClientModel* model;
@@ -461,169 +467,6 @@ class BittrexOrders {
     }
 };
 
-class CryptsyTrades {
-  private:
-    double _id;
-    QString _timeStamp;
-    QString _orderType;
-    double _price;
-    double _quantity;
-    double _total;
-    double _lastCurrent;
-    double _lastPrev;
-    double _volumeCurrent;
-    double _volumePrev;
-
-  public:
-    CryptsyTrades() {
-        _id = 0;
-        _timeStamp = "";
-        _orderType = "";
-        _price = 0;
-        _quantity = 0;
-        _total = 0;
-        _lastCurrent = 0;
-        _lastPrev = 0;
-        _volumeCurrent = 0;
-        _volumePrev = 0;
-    }
-
-    double getId(double) {
-        return _id;
-    }
-    QString getId(QString) {
-        return QString::number(_id, 'f', 8);
-    }
-    void setId(string value) {
-        _id = QString::fromStdString(value).toDouble();
-    }
-
-    QString getTimeStamp() {
-        return _timeStamp;
-    }
-    void setTimeStamp(string value) {
-        _timeStamp = QString::fromStdString(value);
-    }
-
-    QString getOrderType() {
-        return _orderType;
-    }
-    void setOrderType(string value) {
-        _orderType = QString::fromStdString(value);
-    }
-
-    double getPrice(double) {
-        return _price;
-    }
-    QString getPrice(QString) {
-        return QString::number(_price, 'f', 8);
-    }
-    void setPrice(string value) {
-        _price = QString::fromStdString(value).toDouble();
-    }
-
-    double getQuantity(double) {
-        return _quantity;
-    }
-    QString getQuantity(QString) {
-        return QString::number(_quantity, 'f', 8);
-    }
-    void setQuantity(string value) {
-        _quantity = QString::fromStdString(value).toDouble();
-    }
-
-    double getTotal(double) {
-        return _total;
-    }
-    QString getTotal(QString) {
-        return QString::number(_total, 'f', 8);
-    }
-    void setTotal(string value) {
-        _total = QString::fromStdString(value).toDouble();
-    }
-
-    double getLastCurrent(double) {
-        return _lastCurrent;
-    }
-    QString getLastCurrent(QString) {
-        return QString::number(_lastCurrent, 'f', 8);
-    }
-    void setLastCurrent(string value) {
-        _lastCurrent = QString::fromStdString(value).toDouble();
-    }
-
-    double getLastPrev(double) {
-        return _lastPrev;
-    }
-    QString getLastPrev(QString) {
-        return QString::number(_lastPrev, 'f', 8);
-    }
-    void setLastPrev(string value) {
-        _lastPrev = QString::fromStdString(value).toDouble();
-    }
-
-    double getVolumeCurrent(double) {
-        return _volumeCurrent;
-    }
-    QString getVolumeCurrent(QString) {
-        return QString::number(_volumeCurrent, 'f', 8);
-    }
-    void setVolumeCurrent(string value) {
-        _volumeCurrent = QString::fromStdString(value).toDouble();
-    }
-
-    double getVolumePrev(double) {
-        return _volumePrev;
-    }
-    QString getVolumePrev(QString) {
-        return QString::number(_volumePrev, 'f', 8);
-    }
-    void setVolumePrev(string value) {
-        _volumePrev = QString::fromStdString(value).toDouble();
-    }
-};
-
-class CryptsyOrders {
-  private:
-    double _quantity;
-    double _price;
-    QString _orderType;
-
-  public:
-    CryptsyOrders() {
-        _quantity = 0;
-        _price = 0;
-        _orderType = "";
-    }
-
-    double getQuantity(double) {
-        return _quantity;
-    }
-    QString getQuantity(QString) {
-        return QString::number(_quantity, 'f', 8);
-    }
-    void setQuantity(string value) {
-        _quantity = QString::fromStdString(value).toDouble();
-    }
-
-    double getPrice(double) {
-        return _price;
-    }
-    QString getPrice(QString) {
-        return QString::number(_price, 'f', 8);
-    }
-    void setPrice(string value) {
-        _price = QString::fromStdString(value).toDouble();
-    }
-
-    QString getOrderType() {
-        return _orderType;
-    }
-    void setOrderType(string value) {
-        _orderType = QString::fromStdString(value);
-    }
-};
-
 class MintpalMarketSummary {
   private:
     double _askCurrent;
@@ -977,6 +820,536 @@ class MintpalOrders {
 
   public:
     MintpalOrders() {
+        _quantity = 0;
+        _price = 0;
+        _orderType = "";
+    }
+
+    double getQuantity(double) {
+        return _quantity;
+    }
+    QString getQuantity(QString) {
+        return QString::number(_quantity, 'f', 8);
+    }
+    void setQuantity(string value) {
+        _quantity = QString::fromStdString(value).toDouble();
+    }
+
+    double getPrice(double) {
+        return _price;
+    }
+    QString getPrice(QString) {
+        return QString::number(_price, 'f', 8);
+    }
+    void setPrice(string value) {
+        _price = QString::fromStdString(value).toDouble();
+    }
+
+    QString getOrderType() {
+        return _orderType;
+    }
+    void setOrderType(string value) {
+        _orderType = QString::fromStdString(value);
+    }
+};
+
+class PoloniexMarketSummary {
+  private:
+    double _askCurrent;
+    double _askPrev;
+    double _bidCurrent;
+    double _bidPrev;
+    double _lastCurrent;
+    double _lastPrev;
+    double _percentChangeCurrent;
+    double _percentChangePrev;
+
+    QString _timeStamp;
+
+  public:
+    PoloniexMarketSummary() {
+        _askCurrent = 0;
+        _askPrev = 0;
+        _bidCurrent = 0;
+        _bidPrev = 0;
+        _lastCurrent = 0;
+        _lastPrev = 0;
+        _percentChangeCurrent = 0;
+        _percentChangePrev = 0;
+
+        _timeStamp = "";
+    }
+
+    double getAskCurrent(double) {
+        return _askCurrent;
+    }
+    QString getAskCurrent(QString) {
+        return QString::number(_askCurrent, 'f', 8);
+    }
+    void setAskCurrent(QString value) {
+        _askCurrent = value.toDouble();
+    }
+
+    double getAskPrev(double) {
+        return _askPrev;
+    }
+    QString getAskPrev(QString) {
+        return QString::number(_askPrev, 'f', 8);
+    }
+    void setAskPrev(double value) {
+        _askPrev = value;
+    }
+
+    double getBidCurrent(double) {
+        return _bidCurrent;
+    }
+    QString getBidCurrent(QString) {
+        return QString::number(_bidCurrent, 'f', 8);
+    }
+    void setBidCurrent(QString value) {
+        _bidCurrent = value.toDouble();
+    }
+
+    double getBidPrev(double) {
+        return _bidPrev;
+    }
+    QString getBidPrev(QString) {
+        return QString::number(_bidPrev, 'f', 8);
+    }
+    void setBidPrev(double value) {
+        _bidPrev = value;
+    }
+
+    double getLastCurrent(double) {
+        return _lastCurrent;
+    }
+    QString getLastCurrent(QString) {
+        return QString::number(_lastCurrent, 'f', 8);
+    }
+    void setLastCurrent(QString value) {
+        _lastCurrent = value.toDouble();
+    }
+
+    double getLastPrev(double) {
+        return _lastPrev;
+    }
+    QString getLastPrev(QString) {
+        return QString::number(_lastPrev, 'f', 8);
+    }
+    void setLastPrev(double value) {
+        _lastPrev = value;
+    }
+
+    double getPercentChangeCurrent(double) {
+        return _percentChangeCurrent;
+    }
+    QString getPercentChangeCurrent(QString) {
+        return QString::number(_percentChangeCurrent, 'f', 8);
+    }
+    void setPercentChangeCurrent(QString value) {
+        _percentChangeCurrent = value.toDouble();
+    }
+
+    double getPercentChangePrev(double) {
+        return _percentChangePrev;
+    }
+    QString getPercentChangePrev(QString) {
+        return QString::number(_percentChangePrev, 'f', 8);
+    }
+    void setPercentChangePrev(QString value) {
+        _percentChangePrev = value.toDouble();
+    }
+
+    QString getTimeStamp() {
+        return _timeStamp;
+    }
+    void setTimeStamp(string value) {
+        QString ret = QString::fromStdString(value);
+
+        ret.replace("T", " ");
+        ret.truncate(ret.indexOf("."));
+
+        _timeStamp = ret;
+    }
+};
+
+class Poloniex24hVolume {
+  private:
+    double _baseVolumeCurrent;
+    double _baseVolumePrev;
+    double _highCurrent;
+    double _highPrev;
+    double _lowCurrent;
+    double _lowPrev;
+    double _prevDayCurrent;
+    double _prevDayPrev;
+    double _volumeCurrent;
+    double _volumePrev;
+
+  public:
+    Poloniex24hVolume() {
+        _baseVolumeCurrent = 0;
+        _baseVolumePrev = 0;
+        _highCurrent = 0;
+        _highPrev = 0;
+        _lowCurrent = 0;
+        _lowPrev = 0;
+        _prevDayCurrent = 0;
+        _prevDayPrev = 0;
+        _volumeCurrent = 0;
+        _volumePrev = 0;
+    }
+
+    double getBaseVolumeCurrent(double) {
+        return _baseVolumeCurrent;
+    }
+    QString getBaseVolumeCurrent(QString) {
+        return QString::number(_baseVolumeCurrent, 'f', 8);
+    }
+    void setBaseVolumeCurrent(double value) {
+        _baseVolumeCurrent = value;
+    }
+
+    double getBaseVolumePrev(double) {
+        return _baseVolumePrev;
+    }
+    QString getBaseVolumePrev(QString) {
+        return QString::number(_baseVolumePrev, 'f', 8);
+    }
+    void setBaseVolumePrev(double value) {
+        _baseVolumePrev = value;
+    }
+
+    double getHighCurrent(double) {
+        return _highCurrent;
+    }
+    QString getHighCurrent(QString) {
+        return QString::number(_highCurrent, 'f', 8);
+    }
+    void setHighCurrent(double value) {
+        _highCurrent = value;
+    }
+
+    double getHighPrev(double) {
+        return _highPrev;
+    }
+    QString getHighPrev(QString) {
+        return QString::number(_highPrev, 'f', 8);
+    }
+    void setHighPrev(double value) {
+        _highPrev = value;
+    }
+
+    double getLowCurrent(double) {
+        return _lowCurrent;
+    }
+    QString getLowCurrent(QString) {
+        return QString::number(_lowCurrent, 'f', 8);
+    }
+    void setLowCurrent(double value) {
+        _lowCurrent = value;
+    }
+
+    double getLowPrev(double) {
+        return _lowPrev;
+    }
+    QString getLowPrev(QString) {
+        return QString::number(_lowPrev, 'f', 8);
+    }
+    void setLowPrev(double value) {
+        _lowPrev = value;
+    }
+
+    double getPrevDayCurrent(double) {
+        return _prevDayCurrent;
+    }
+    QString getPrevDayCurrent(QString) {
+        return QString::number(_prevDayCurrent, 'f', 8);
+    }
+    void setPrevDayCurrent(double value) {
+        _prevDayCurrent = value;
+    }
+
+    double getPrevDayPrev(double) {
+        return _prevDayPrev;
+    }
+    QString getPrevDayPrev(QString) {
+        return QString::number(_prevDayPrev, 'f', 8);
+    }
+    void setPrevDayPrev(double value) {
+        _prevDayPrev = value;
+    }
+
+    double getVolumeCurrent(double) {
+        return _volumeCurrent;
+    }
+    QString getVolumeCurrent(QString) {
+        return QString::number(_volumeCurrent, 'f', 8);
+    }
+    void setVolumeCurrent(double value) {
+        _volumeCurrent = value;
+    }
+
+    double getVolumePrev(double) {
+        return _volumePrev;
+    }
+    QString getVolumePrev(QString) {
+        return QString::number(_volumePrev, 'f', 8);
+    }
+    void setVolumePrev(double value) {
+        _volumePrev = value;
+    }
+};
+
+class PoloniexTrades {
+  private:
+    double _id;
+    QString _timeStamp;
+    double _quantity;
+    double _price;
+    double _total;
+    QString _fillType;
+    QString _orderType;
+
+  public:
+    PoloniexTrades() {
+        _id = 0;
+        _timeStamp = "";
+        _quantity = 0;
+        _price = 0;
+        _total = 0;
+        _fillType = "";
+        _orderType = "";
+    }
+
+    double getId(double) {
+        return _id;
+    }
+    QString getId(QString) {
+        return QString::number(_id, 'f', 8);
+    }
+    void setId(QString value) {
+        _id = value.toDouble();
+    }
+
+    QString getTimeStamp() {
+        return _timeStamp;
+    }
+    void setTimeStamp(QString value) {
+        _timeStamp = value;
+    }
+
+    double getQuantity(double) {
+        return _quantity;
+    }
+    QString getQuantity(QString) {
+        return QString::number(_quantity, 'f', 8);
+    }
+    void setQuantity(QString value) {
+        _quantity = value.toDouble();
+    }
+
+    double getPrice(double) {
+        return _price;
+    }
+    QString getPrice(QString) {
+        return QString::number(_price, 'f', 8);
+    }
+    void setPrice(QString value) {
+        _price = value.toDouble();
+    }
+
+    double getTotal(double) {
+        return _total;
+    }
+    QString getTotal(QString) {
+        return QString::number(_total, 'f', 8);
+    }
+    void setTotal(QString value) {
+        _total = value.toDouble();
+    }
+
+    QString getOrderType() {
+        return _orderType;
+    }
+    void setOrderType(string value) {
+        _orderType = QString::fromStdString(value) == "buy"
+                     ? "Buy" : QString::fromStdString(value) == "sell"
+                     ? "Sell" : "Unknown";
+    }
+};
+
+class PoloniexOrders {
+  private:
+    double _quantity;
+    double _price;
+    QString _orderType;
+
+  public:
+    PoloniexOrders() {
+        _quantity = 0;
+        _price = 0;
+        _orderType = "";
+    }
+
+    double getQuantity(double) {
+        return _quantity;
+    }
+    QString getQuantity(QString) {
+        return QString::number(_quantity, 'f', 8);
+    }
+    void setQuantity(double value) {
+        _quantity = value;
+    }
+
+    double getPrice(double) {
+        return _price;
+    }
+    QString getPrice(QString) {
+        return QString::number(_price, 'f', 8);
+    }
+    void setPrice(double value) {
+        _price = value;
+    }
+
+    QString getOrderType() {
+        return _orderType;
+    }
+    void setOrderType(string value) {
+        _orderType = QString::fromStdString(value);
+    }
+};
+
+class CryptsyTrades {
+  private:
+    double _id;
+    QString _timeStamp;
+    QString _orderType;
+    double _price;
+    double _quantity;
+    double _total;
+    double _lastCurrent;
+    double _lastPrev;
+    double _volumeCurrent;
+    double _volumePrev;
+
+  public:
+    CryptsyTrades() {
+        _id = 0;
+        _timeStamp = "";
+        _orderType = "";
+        _price = 0;
+        _quantity = 0;
+        _total = 0;
+        _lastCurrent = 0;
+        _lastPrev = 0;
+        _volumeCurrent = 0;
+        _volumePrev = 0;
+    }
+
+    double getId(double) {
+        return _id;
+    }
+    QString getId(QString) {
+        return QString::number(_id, 'f', 8);
+    }
+    void setId(string value) {
+        _id = QString::fromStdString(value).toDouble();
+    }
+
+    QString getTimeStamp() {
+        return _timeStamp;
+    }
+    void setTimeStamp(string value) {
+        _timeStamp = QString::fromStdString(value);
+    }
+
+    QString getOrderType() {
+        return _orderType;
+    }
+    void setOrderType(string value) {
+        _orderType = QString::fromStdString(value);
+    }
+
+    double getPrice(double) {
+        return _price;
+    }
+    QString getPrice(QString) {
+        return QString::number(_price, 'f', 8);
+    }
+    void setPrice(string value) {
+        _price = QString::fromStdString(value).toDouble();
+    }
+
+    double getQuantity(double) {
+        return _quantity;
+    }
+    QString getQuantity(QString) {
+        return QString::number(_quantity, 'f', 8);
+    }
+    void setQuantity(string value) {
+        _quantity = QString::fromStdString(value).toDouble();
+    }
+
+    double getTotal(double) {
+        return _total;
+    }
+    QString getTotal(QString) {
+        return QString::number(_total, 'f', 8);
+    }
+    void setTotal(string value) {
+        _total = QString::fromStdString(value).toDouble();
+    }
+
+    double getLastCurrent(double) {
+        return _lastCurrent;
+    }
+    QString getLastCurrent(QString) {
+        return QString::number(_lastCurrent, 'f', 8);
+    }
+    void setLastCurrent(string value) {
+        _lastCurrent = QString::fromStdString(value).toDouble();
+    }
+
+    double getLastPrev(double) {
+        return _lastPrev;
+    }
+    QString getLastPrev(QString) {
+        return QString::number(_lastPrev, 'f', 8);
+    }
+    void setLastPrev(string value) {
+        _lastPrev = QString::fromStdString(value).toDouble();
+    }
+
+    double getVolumeCurrent(double) {
+        return _volumeCurrent;
+    }
+    QString getVolumeCurrent(QString) {
+        return QString::number(_volumeCurrent, 'f', 8);
+    }
+    void setVolumeCurrent(string value) {
+        _volumeCurrent = QString::fromStdString(value).toDouble();
+    }
+
+    double getVolumePrev(double) {
+        return _volumePrev;
+    }
+    QString getVolumePrev(QString) {
+        return QString::number(_volumePrev, 'f', 8);
+    }
+    void setVolumePrev(string value) {
+        _volumePrev = QString::fromStdString(value).toDouble();
+    }
+};
+
+class CryptsyOrders {
+  private:
+    double _quantity;
+    double _price;
+    QString _orderType;
+
+  public:
+    CryptsyOrders() {
         _quantity = 0;
         _price = 0;
         _orderType = "";
