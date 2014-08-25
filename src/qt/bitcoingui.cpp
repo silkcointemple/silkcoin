@@ -267,7 +267,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     connect(actionTwitter, SIGNAL(triggered()), this, SLOT(openTwitter()));
     connect(actionReddit, SIGNAL(triggered()), this, SLOT(openReddit()));
 
-    connect(actionLockUnlockWallet_Toolbar, SIGNAL(trigered()), this, SLOT(lockUnlockWallet()));
+    connect(actionLockUnlockWallet_Toolbar, SIGNAL(triggered()), this, SLOT(lockUnlockWallet()));
     connect(actionHowToStake, SIGNAL(triggered()), this, SLOT(tutoStackClicked()));
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
