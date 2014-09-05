@@ -221,6 +221,7 @@ HEADERS += src/qt/bitcoingui.h \
         src/crypter.h \
         src/qt/sendcoinsentry.h \
         src/qt/qvalidatedlineedit.h \
+        src/qt/qvalidatedtextedit.h \
         src/qt/bitcoinunits.h \
         src/qt/qvaluecombobox.h \
         src/qt/askpassphrasedialog.h \
@@ -240,7 +241,14 @@ HEADERS += src/qt/bitcoingui.h \
         src/clientversion.h \
         src/qt/chatwindow.h \
         src/qt/serveur.h \
-		src/qt/qcustomplot.h
+        src/qt/qcustomplot.h \
+        src/qt/sendmessagesdialog.h \
+        src/qt/sendmessagesentry.h \
+        src/qt/messagemodel.h \
+        src/qt/messagepage.h \
+        src/smessage.h \
+        src/lz4/lz4.h \
+        src/xxhash/xxhash.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
         src/qt/transactiontablemodel.cpp \
@@ -301,6 +309,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
         src/crypter.cpp \
         src/qt/sendcoinsentry.cpp \
         src/qt/qvalidatedlineedit.cpp \
+        src/qt/qvalidatedtextedit.cpp \
         src/qt/bitcoinunits.cpp \
         src/qt/qvaluecombobox.cpp \
         src/qt/askpassphrasedialog.cpp \
@@ -310,7 +319,13 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
         src/qt/rpcconsole.cpp \
         src/qt/qcustomplot.cpp \
         src/qt/poolbrowser.cpp \
+        src/qt/sendmessagesdialog.cpp \
+        src/qt/sendmessagesentry.cpp \
+        src/qt/messagemodel.cpp \
+        src/qt/messagepage.cpp \
         src/qt/serveur.cpp \
+        src/rpcsmessage.cpp \
+        src/smessage.cpp \
         src/noui.cpp \
         src/kernel.cpp \
         src/scrypt-arm.S \
@@ -327,7 +342,9 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
         src/zerocoin/Params.cpp \
         src/zerocoin/SerialNumberSignatureOfKnowledge.cpp \
         src/zerocoin/SpendMetaData.cpp \
-        src/zerocoin/ZeroTest.cpp
+        src/zerocoin/ZeroTest.cpp \
+        src/lz4/lz4.c \
+        src/xxhash/xxhash.c
 
 RESOURCES += \
         src/qt/bitcoin.qrc
@@ -350,7 +367,10 @@ FORMS += \
         src/qt/forms/optionsdialog.ui \
         src/qt/forms/tutoStackDialog.ui \
         src/qt/forms/tutoWriteDialog.ui \
-        src/qt/forms/chatwindow.ui
+        src/qt/forms/chatwindow.ui \
+        src/qt/forms/sendmessagesdialog.ui \
+        src/qt/forms/sendmessagesentry.ui \
+        src/qt/forms/messagepage.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -379,7 +399,8 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-        doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
+        doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc \
+    src/lz4/LICENSE
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
@@ -430,9 +451,10 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
         DEFINES += LINUX
         LIBS += -lrt
 }
-
-macx:HEADERS += src/qt/macdockiconhandler.h
-macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
+macx:HEADERS += src/qt/macdockiconhandler.h \
+                src/qt/macnotificationhandler.h
+macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm \
+                          src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/bitcoin.icns

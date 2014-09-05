@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2013 The Bitcoin developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef MACDOCKICONHANDLER_H
 #define MACDOCKICONHANDLER_H
 
@@ -18,10 +22,11 @@ class DockIconClickEventHandler;
 
 /** Macintosh-specific dock icon handler.
  */
-class MacDockIconHandler : public QObject {
+class MacDockIconHandler : public QObject
+{
     Q_OBJECT
 
-  public:
+public:
     ~MacDockIconHandler();
 
     QMenu *dockMenu();
@@ -31,10 +36,10 @@ class MacDockIconHandler : public QObject {
 
     void handleDockIconClickEvent();
 
-  signals:
+signals:
     void dockIconClicked();
 
-  private:
+private:
     MacDockIconHandler();
 
     DockIconClickEventHandler *m_dockIconClickEventHandler;
