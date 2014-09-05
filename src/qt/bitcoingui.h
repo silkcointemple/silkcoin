@@ -7,12 +7,14 @@
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
+class MessageModel;
 class TransactionView;
 class OverviewPage;
 class StatisticsPage;
 class BlockBrowser;
 class PoolBrowser;
 class AddressBookPage;
+class MessagePage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
@@ -51,6 +53,11 @@ class BitcoinGUI : public QMainWindow {
     functionality.
     */
     void setWalletModel(WalletModel *walletModel);
+    /** Set the message model.
+        The message model represents encryption message database, and offers access to the list of messages, address book and sending
+        functionality.
+    */
+    void setMessageModel(MessageModel *messageModel);
 
   protected:
     void changeEvent(QEvent *e);
@@ -61,6 +68,7 @@ class BitcoinGUI : public QMainWindow {
   private:
     ClientModel *clientModel;
     WalletModel *walletModel;
+    MessageModel *messageModel;
 
     QStackedWidget *centralWidget;
 
@@ -72,6 +80,7 @@ class BitcoinGUI : public QMainWindow {
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
+    MessagePage *messagePage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
     QWidget *settingsPage;
@@ -100,6 +109,7 @@ class BitcoinGUI : public QMainWindow {
     QAction *historyAction;
     QAction *quitAction;
     QAction *exitAction;
+    QAction *messageAction;
     QAction *settingsAction;
     QAction *sendAction;
     QAction *sendCoinsAction;
@@ -191,6 +201,8 @@ class BitcoinGUI : public QMainWindow {
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
+    /** Switch to message page */
+    void gotoMessagePage();
     void gotoSettingsPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
@@ -213,6 +225,13 @@ class BitcoinGUI : public QMainWindow {
     The new items are those between start and end inclusive, under the given parent item.
     */
     void incomingTransaction(const QModelIndex & parent, int start, int end);
+
+    /** Show incoming message notification for new messages.
+
+        The new items are those between start and end inclusive, under the given parent item.
+    */
+    void incomingMessage(const QModelIndex & parent, int start, int end);
+
     /** Encrypt the wallet */
     void encryptWallet(bool status);
     /** Backup the wallet */
