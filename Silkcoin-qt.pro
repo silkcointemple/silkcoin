@@ -171,6 +171,7 @@ HEADERS += \
         src/kernel.h \
         src/key.h \
         src/keystore.h \
+        src/lz4/lz4.h \
         src/main.h \
         src/miner.h \
         src/mruset.h \
@@ -194,6 +195,8 @@ HEADERS += \
         src/qt/editaddressdialog.h \
         src/qt/guiconstants.h \
         src/qt/guiutil.h \
+        src/qt/messagemodel.h \
+        src/qt/messagepage.h \
         src/qt/monitoreddatamapper.h \
         src/qt/nightcharts.h \
         src/qt/notificator.h \
@@ -212,6 +215,8 @@ HEADERS += \
         src/qt/rpcconsole.h \
         src/qt/sendcoinsdialog.h \
         src/qt/sendcoinsentry.h \
+        src/qt/sendmessagesdialog.h \
+        src/qt/sendmessagesentry.h \
         src/qt/signverifymessagedialog.h \
         src/qt/statisticspage.h \
         src/qt/transactiondesc.h \
@@ -226,6 +231,7 @@ HEADERS += \
         src/script.h \
         src/scrypt.h \
         src/serialize.h \
+        src/smessage.h \
         src/strlcpy.h \
         src/sync.h \
         src/txdb.h \
@@ -233,20 +239,9 @@ HEADERS += \
         src/uint256.h \
         src/util.h \
         src/version.h \
-        src/netbase.h \
-        src/clientversion.h \
-        src/qt/chatwindow.h \
-        src/qt/serveur.h \
-        src/qt/qcustomplot.h \
-        src/qt/sendmessagesdialog.h \
-        src/qt/sendmessagesentry.h \
-        src/qt/messagemodel.h \
-        src/qt/messagepage.h \
-        src/smessage.h \
-        src/lz4/lz4.h \
-        src/xxhash/xxhash.h
         src/wallet.h \
         src/walletdb.h \
+        src/xxhash/xxhash.h \
         src/zerocoin/Accumulator.h \
         src/zerocoin/AccumulatorProofOfKnowledge.h \
         src/zerocoin/Coin.h \
@@ -271,6 +266,7 @@ SOURCES += \
         src/kernel.cpp \
         src/key.cpp \
         src/keystore.cpp \
+        src/lz4/lz4.c \
         src/main.cpp \
         src/miner.cpp \
         src/net.cpp \
@@ -294,6 +290,10 @@ SOURCES += \
         src/qt/csvmodelwriter.cpp \
         src/qt/editaddressdialog.cpp \
         src/qt/guiutil.cpp \
+        src/qt/sendmessagesdialog.cpp \
+        src/qt/sendmessagesentry.cpp \
+        src/qt/messagemodel.cpp \
+        src/qt/messagepage.cpp \
         src/qt/monitoreddatamapper.cpp \
         src/qt/nightcharts.cpp \
         src/qt/notificator.cpp \
@@ -305,6 +305,7 @@ SOURCES += \
         src/qt/qcustomplot.cpp \
         src/qt/qtipcserver.cpp \
         src/qt/qvalidatedlineedit.cpp \
+        src/qt/qvalidatedtextedit.cpp \
         src/qt/qvaluecombobox.cpp \
         src/qt/richlist.cpp \
         src/qt/rpcconsole.cpp \
@@ -326,42 +327,20 @@ SOURCES += \
         src/rpcmining.cpp \
         src/rpcnet.cpp \
         src/rpcrawtransaction.cpp \
-        src/qt/overviewpage.cpp \
-        src/qt/blockbrowser.cpp \
-        src/qt/csvmodelwriter.cpp \
-        src/crypter.cpp \
-        src/qt/sendcoinsentry.cpp \
-        src/qt/qvalidatedlineedit.cpp \
-        src/qt/qvalidatedtextedit.cpp \
-        src/qt/bitcoinunits.cpp \
-        src/qt/qvaluecombobox.cpp \
-        src/qt/askpassphrasedialog.cpp \
-        src/protocol.cpp \
-        src/qt/notificator.cpp \
-        src/qt/qtipcserver.cpp \
-        src/qt/rpcconsole.cpp \
-        src/qt/qcustomplot.cpp \
-        src/qt/poolbrowser.cpp \
-        src/qt/sendmessagesdialog.cpp \
-        src/qt/sendmessagesentry.cpp \
-        src/qt/messagemodel.cpp \
-        src/qt/messagepage.cpp \
-        src/qt/serveur.cpp \
         src/rpcsmessage.cpp \
-        src/smessage.cpp \
-        src/noui.cpp \
-        src/kernel.cpp \
         src/rpcwallet.cpp \
         src/script.cpp \
         src/scrypt-arm.S \
         src/scrypt-x86.S \
         src/scrypt-x86_64.S \
         src/scrypt.cpp \
+        src/smessage.cpp \
         src/sync.cpp \
         src/util.cpp \
         src/version.cpp \
         src/wallet.cpp \
         src/walletdb.cpp \
+        src/xxhash/xxhash.c \
         src/zerocoin/Accumulator.cpp \
         src/zerocoin/AccumulatorProofOfKnowledge.cpp \
         src/zerocoin/Coin.cpp \
@@ -371,9 +350,7 @@ SOURCES += \
         src/zerocoin/Params.cpp \
         src/zerocoin/SerialNumberSignatureOfKnowledge.cpp \
         src/zerocoin/SpendMetaData.cpp \
-        src/zerocoin/ZeroTest.cpp \
-        src/lz4/lz4.c \
-        src/xxhash/xxhash.c
+        src/zerocoin/ZeroTest.cpp
 
 RESOURCES += \
         src/qt/bitcoin.qrc
@@ -385,6 +362,7 @@ FORMS += \
         src/qt/forms/blockbrowser.ui\
         src/qt/forms/coincontroldialog.ui \
         src/qt/forms/editaddressdialog.ui \
+        src/qt/forms/messagepage.ui \
         src/qt/forms/optionsdialog.ui \
         src/qt/forms/overviewpage.ui \
         src/qt/forms/poll.ui \
@@ -393,15 +371,14 @@ FORMS += \
         src/qt/forms/rpcconsole.ui \
         src/qt/forms/sendcoinsdialog.ui \
         src/qt/forms/sendcoinsentry.ui \
+        src/qt/forms/sendmessagesdialog.ui \
+        src/qt/forms/sendmessagesentry.ui \
         src/qt/forms/signverifymessagedialog.ui \
         src/qt/forms/statisticspage.ui \
         src/qt/forms/transactiondescdialog.ui \
         src/qt/forms/tutoStackDialog.ui \
-        src/qt/forms/tutoWriteDialog.ui \
-        src/qt/forms/chatwindow.ui \
-        src/qt/forms/sendmessagesdialog.ui \
-        src/qt/forms/sendmessagesentry.ui \
-        src/qt/forms/messagepage.ui
+        src/qt/forms/tutoWriteDialog.ui
+
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
