@@ -205,11 +205,8 @@ HEADERS += \
         src/qt/qcustomplot.h \
         src/qt/qtipcserver.h \
         src/qt/qvalidatedlineedit.h \
-<<<<<<< HEAD
         src/qt/qvalidatedtextedit.h \
         src/qt/bitcoinunits.h \
-=======
->>>>>>> 7b9d720dc1a996178b65a0c0b3e7f2fd108eca92
         src/qt/qvaluecombobox.h \
         src/qt/richlist.h \
         src/qt/rpcconsole.h \
@@ -236,7 +233,6 @@ HEADERS += \
         src/uint256.h \
         src/util.h \
         src/version.h \
-<<<<<<< HEAD
         src/netbase.h \
         src/clientversion.h \
         src/qt/chatwindow.h \
@@ -249,7 +245,6 @@ HEADERS += \
         src/smessage.h \
         src/lz4/lz4.h \
         src/xxhash/xxhash.h
-=======
         src/wallet.h \
         src/walletdb.h \
         src/zerocoin/Accumulator.h \
@@ -263,7 +258,6 @@ HEADERS += \
         src/zerocoin/SpendMetaData.h \
         src/zerocoin/Zerocoin.h \
         src/zerocoin/ZeroTest.h
->>>>>>> 7b9d720dc1a996178b65a0c0b3e7f2fd108eca92
 
 SOURCES += \
         src/addrman.cpp \
@@ -332,7 +326,6 @@ SOURCES += \
         src/rpcmining.cpp \
         src/rpcnet.cpp \
         src/rpcrawtransaction.cpp \
-<<<<<<< HEAD
         src/qt/overviewpage.cpp \
         src/qt/blockbrowser.cpp \
         src/qt/csvmodelwriter.cpp \
@@ -358,10 +351,8 @@ SOURCES += \
         src/smessage.cpp \
         src/noui.cpp \
         src/kernel.cpp \
-=======
         src/rpcwallet.cpp \
         src/script.cpp \
->>>>>>> 7b9d720dc1a996178b65a0c0b3e7f2fd108eca92
         src/scrypt-arm.S \
         src/scrypt-x86.S \
         src/scrypt-x86_64.S \
@@ -406,15 +397,11 @@ FORMS += \
         src/qt/forms/statisticspage.ui \
         src/qt/forms/transactiondescdialog.ui \
         src/qt/forms/tutoStackDialog.ui \
-<<<<<<< HEAD
         src/qt/forms/tutoWriteDialog.ui \
         src/qt/forms/chatwindow.ui \
         src/qt/forms/sendmessagesdialog.ui \
         src/qt/forms/sendmessagesentry.ui \
         src/qt/forms/messagepage.ui
-=======
-        src/qt/forms/tutoWriteDialog.ui
->>>>>>> 7b9d720dc1a996178b65a0c0b3e7f2fd108eca92
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
