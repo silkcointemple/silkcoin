@@ -47,7 +47,7 @@ void RichList::processOverview(QNetworkReply* response) {
         ui->tblRichList->clear();
         ui->tblRichList->setColumnWidth(0, 60);
         ui->tblRichList->setColumnWidth(1, 25);
-        ui->tblRichList->setColumnWidth(2, 320);
+        ui->tblRichList->setColumnWidth(2, 310);
         ui->tblRichList->setColumnWidth(3, 130);
         ui->tblRichList->setColumnWidth(4, 95);
         ui->tblRichList->setColumnWidth(5, 95);
