@@ -1193,11 +1193,14 @@ void BitcoinGUI::gotoSendCoinsPage() {
 void BitcoinGUI::gotoMessagePage()
 {
     messageAction->setChecked(true);
+    actionSendReceive->setChecked(false);
     centralWidget->setCurrentWidget(messagePage);
 
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
     connect(exportAction, SIGNAL(triggered()), messagePage, SLOT(exportClicked()));
+    wId->raise();
+    wId2->hide();
 }
 
 void BitcoinGUI::gotoSettingsPage() {
