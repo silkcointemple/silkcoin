@@ -77,7 +77,6 @@
         <file alias="abouti">res/icons/abouti.png</file>
         <file alias="debugi">res/icons/debugi.png</file>
         <file>res/icons/bittrex.png</file>
-        <file>res/icons/mintpal.png</file>
         <file>res/icons/over.png</file>
         <file>res/icons/cryptsy.png</file>
         <file alias="locks">res/icons/locks.png</file>

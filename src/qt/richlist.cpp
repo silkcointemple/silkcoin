@@ -16,7 +16,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 
-using namespace json_spirit;
+//using namespace json_spirit;
 
 //Richlist API
 const QString apiRichlist = "http://api.silkcoin.io/wallet/richlist.php";
@@ -73,7 +73,7 @@ void RichList::processOverview(QNetworkReply* response) {
 
             } catch (exception) {} //API did not return all needed data so skip this address
 
-            QTreeWidgetItem * qtHighRollers = new QTreeWidgetItem();
+            QTreeWidgetItem* qtHighRollers = new QTreeWidgetItem();
 
             qtHighRollers->setText(0, _highRollers->getRank(QString()));
 
