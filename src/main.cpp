@@ -44,7 +44,7 @@ CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
 unsigned int nTargetSpacing = 1 * 60; // 1 minute
-unsigned int nStakeTargetSpacing = 3 * 60; // 1-minute block spacing
+unsigned int nStakeTargetSpacing = 3 * 60; // 3-minute block spacing
 unsigned int nStakeMinAge = 12 * 60 * 60; // 12 hours
 unsigned int nStakeMaxAge = -1; // unlimited
 unsigned int nStakeMinAgeV2 = 8 * 60 * 60; // 8 Hour minimum age for coin age
