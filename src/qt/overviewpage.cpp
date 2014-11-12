@@ -8,7 +8,6 @@
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
-#include "poolbrowser.h"
 #include "bitcoingui.h"
 
 #include <QAbstractItemDelegate>
@@ -69,14 +68,6 @@ class TxViewDelegate : public QAbstractItemDelegate {
 
         if (convertmode == 0) {
             amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
-        }
-
-        if (convertmode == 1) {
-            amountText = BitcoinUnits::formatWithUnit(unit, (_dScPriceLast * amount), true);
-        }
-
-        if (convertmode == 2) {
-            amountText = BitcoinUnits::formatWithUnit(unit, (_dScPriceLast / _dBtcPriceLast * amount), true);
         }
 
         if (!confirmed) {
@@ -151,19 +142,7 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
         ui->lblBalanceSlot1->setText(BitcoinUnits::formatWithUnit(unit, stake));
         ui->lblDetailsSlot0->setText(BitcoinUnits::formatWithUnit(unit, unconfirmedBalance));
         ui->lblBalanceSlot3->setText(BitcoinUnits::formatWithUnit(unit, balance + stake + unconfirmedBalance + immatureBalance));
-
-    } else if (convertmode == 1) {
-        ui->lblBalanceSlot0->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast * balance)));
-        ui->lblBalanceSlot1->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast * stake)));
-        ui->lblDetailsSlot0->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast * unconfirmedBalance)));
-        ui->lblBalanceSlot3->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast * (balance + stake + unconfirmedBalance + immatureBalance))));
-
-    } else if (convertmode == 2) {
-        ui->lblBalanceSlot0->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast / _dBtcPriceLast * balance)));
-        ui->lblBalanceSlot1->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast / _dBtcPriceLast * stake)));
-        ui->lblDetailsSlot0->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast / _dBtcPriceLast * unconfirmedBalance)));
-        ui->lblBalanceSlot3->setText(BitcoinUnits::formatWithUnit(unit, (_dScPriceLast / _dBtcPriceLast * (balance + stake + unconfirmedBalance + immatureBalance))));
-    }
+    } 
 }
 
 void OverviewPage::setNumTransactions(int count) {
