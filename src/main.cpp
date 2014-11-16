@@ -48,7 +48,7 @@ unsigned int nStakeTargetSpacing = 3 * 60; // 3-minute block spacing
 unsigned int nStakeMinAge = 12 * 60 * 60; // 12 hours
 unsigned int nStakeMaxAge = -1; // unlimited
 unsigned int nStakeMinAgeV2 = 8 * 60 * 60; // 8 Hour minimum age for coin age
-unsigned int nStakeMaxAgeV2 = 16 * 60 * 60; //16 Hour stake age of full weight
+unsigned int nStakeMaxAgeV2 = -1; //16 Hour stake age of full weight
 
 unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
 
