@@ -43,12 +43,12 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-unsigned int nTargetSpacing = 1 * 60; // 1 minute
-unsigned int nStakeTargetSpacing = 3 * 60; // 3-minute block spacing
-unsigned int nStakeMinAge = 12 * 60 * 60; // 12 hours
-unsigned int nStakeMaxAge = -1; // unlimited
-unsigned int nStakeMinAgeV2 = 8 * 60 * 60; // 8 Hour minimum age for coin age
-unsigned int nStakeMaxAgeV2 = -1; //16 Hour stake age of full weight
+unsigned int nTargetSpacing = 1 * 60; // 1 minute block spacing (Old Block Spacing)
+unsigned int nStakeTargetSpacing = 3 * 60; // 3-minute block spacing (New Block Spacing)
+unsigned int nStakeMinAge = 12 * 60 * 60; // 12 hours (Original Minimum Stake Age)
+unsigned int nStakeMaxAge = -1; // Unlimited Max Stake Age (Original Maximum Stake Age)
+unsigned int nStakeMinAgeV2 = 8 * 60 * 60; // 8 Hour Minimum Stake Age (New Minimum Stake Age)
+unsigned int nStakeMaxAgeV2 = -1; //Unlimited Max Stake Age (New Maximum Stake Age)
 
 unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
 
