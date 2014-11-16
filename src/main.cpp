@@ -1034,7 +1034,7 @@ int64_t GetProofOfStakeRewardV2(int64_t nCoinAge, unsigned int nBits, unsigned i
 
    // bool fPrintCreation = GetBoolArg("-printcreation");
 
-    CBigNum bnRewardCoinYearLimit = COIN_YEAR_REWARDV2; // Base stake mint rate, 200% year interest
+    CBigNum bnRewardCoinYearLimit = COIN_YEAR_REWARDV2; // Base stake mint rate, 111% year interest
     CBigNum bnTarget;
     bnTarget.SetCompact(nBits);
     CBigNum bnTargetLimit = bnProofOfStakeLimit;
