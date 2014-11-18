@@ -39,11 +39,14 @@ static const unsigned int MAX_INV_SZ = 50000;
 static const int64_t MIN_TX_FEE = 10000;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 2000000000 * COIN;
-static const int64_t COIN_YEAR_REWARD = 2 * CENT; // 1% per year
-
+static const int64_t COIN_YEAR_REWARD = 2 * CENT; // 2% per year
+static const int64_t COIN_YEAR_REWARDV2 = 111 * CENT; // 111% per year
+static const unsigned int VERSION2_SWITCH_TIME = 1417392001; // December 1st 2014 @ 00:00:01
+static const int64_t MIN_TXOUT_AMOUNT = MIN_TX_FEE;
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
+
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
@@ -94,6 +97,8 @@ extern bool fEnforceCanonical;
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64_t nMinDiskSpace = 52428800;
 
+
+
 class CReserveKey;
 class CTxDB;
 class CTxIndex;
@@ -115,7 +120,11 @@ bool LoadExternalBlockFile(FILE* fileIn);
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);
 unsigned int GetNextTargetRequired(const CBlockIndex* pindexLast, bool fProofOfStake);
 int64_t GetProofOfWorkReward(int64_t nFees, unsigned int nHeight);
-int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees);
+int64_t GetProofOfWorkRewardV2(int64_t nFees, unsigned int nHeight);
+int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, int64_t nFees, int64_t nTime, bool bCoinYearOnly=false);
+int64_t GetProofOfStakeRewardV1(int64_t nCoinAge, int64_t nFees);
+int64_t GetProofOfStakeRewardV2(int64_t nCoinAge, unsigned int nBits, unsigned int nTime, bool bCoinYearOnly=false);
+
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime);
 unsigned int ComputeMinStake(unsigned int nBase, int64_t nTime, unsigned int nBlockTime);
 int GetNumBlocksOfPeers();

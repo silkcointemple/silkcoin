@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = silkcoin-qt
-VERSION = 1.1.0.22
+VERSION = 2.0.0.0
  
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
@@ -227,7 +227,6 @@ HEADERS += \
         src/qt/optionsmodel.h \
         src/qt/overviewpage.h \
         src/qt/poll.h \
-        src/qt/poolbrowser.h \
         src/qt/qcustomplot.h \
         src/qt/qtipcserver.h \
         src/qt/qvalidatedlineedit.h \
@@ -241,7 +240,6 @@ HEADERS += \
         src/qt/sendmessagesdialog.h \
         src/qt/sendmessagesentry.h \
         src/qt/signverifymessagedialog.h \
-        src/qt/statisticspage.h \
         src/qt/transactiondesc.h \
         src/qt/transactiondescdialog.h \
         src/qt/transactionfilterproxy.h \
@@ -324,7 +322,6 @@ SOURCES += \
         src/qt/optionsmodel.cpp \
         src/qt/overviewpage.cpp \
         src/qt/poll.cpp \
-        src/qt/poolbrowser.cpp \
         src/qt/qcustomplot.cpp \
         src/qt/qtipcserver.cpp \
         src/qt/qvalidatedlineedit.cpp \
@@ -335,7 +332,6 @@ SOURCES += \
         src/qt/sendcoinsdialog.cpp \
         src/qt/sendcoinsentry.cpp \
         src/qt/signverifymessagedialog.cpp \
-        src/qt/statisticspage.cpp \
         src/qt/transactiondesc.cpp \
         src/qt/transactiondescdialog.cpp \
         src/qt/transactionfilterproxy.cpp \
@@ -389,7 +385,6 @@ FORMS += \
         src/qt/forms/optionsdialog.ui \
         src/qt/forms/overviewpage.ui \
         src/qt/forms/poll.ui \
-        src/qt/forms/poolbrowser.ui \
         src/qt/forms/richlist.ui \
         src/qt/forms/rpcconsole.ui \
         src/qt/forms/sendcoinsdialog.ui \
@@ -397,7 +392,6 @@ FORMS += \
         src/qt/forms/sendmessagesdialog.ui \
         src/qt/forms/sendmessagesentry.ui \
         src/qt/forms/signverifymessagedialog.ui \
-        src/qt/forms/statisticspage.ui \
         src/qt/forms/transactiondescdialog.ui \
         src/qt/forms/tutoStackDialog.ui \
         src/qt/forms/tutoWriteDialog.ui

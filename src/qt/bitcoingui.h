@@ -10,9 +10,7 @@ class WalletModel;
 class MessageModel;
 class TransactionView;
 class OverviewPage;
-class StatisticsPage;
 class BlockBrowser;
-class PoolBrowser;
 class RichList;
 class Poll;
 class AddressBookPage;
@@ -75,9 +73,7 @@ class BitcoinGUI : public QMainWindow {
     QStackedWidget *centralWidget;
 
     OverviewPage *overviewPage;
-    StatisticsPage *statisticsPage;
     BlockBrowser *blockBrowser;
-    PoolBrowser *poolBrowser;
     RichList *richList;
     Poll *poll;
     ChatWindow *chatWindow;
@@ -190,9 +186,7 @@ class BitcoinGUI : public QMainWindow {
 
   private slots:
     void gotoOverviewPage();
-    void gotoStatisticsPage();
     void gotoBlockBrowser();
-    void gotoPoolBrowser();
     void gotoRichList();
     void gotoPoll();
     void gotoHistoryPage();

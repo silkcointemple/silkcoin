@@ -3,7 +3,6 @@
 #include "bitcoinunits.h"
 
 #include "guiconstants.h"
-#include "poolbrowser.h"
 
 #include <QLabel>
 #include <QLineEdit>
@@ -89,12 +88,6 @@ void BitcoinAmountField::setValid(bool valid) {
 }
 
 QString BitcoinAmountField::text() const {
-
-    //Avoid putting 'NaN' in BTC price due to divide by zero.  Happens when price has not been received from Market Data API
-    QString qsBtcPrice = _dBtcPriceCurrent > 0 ? (QString::number(amount->value() * (_dScPriceLast / _dBtcPriceCurrent))) : "0";
-
-    label_btc->setText("Sending $" + (QString::number(amount->value() * _dScPriceLast)) + " or " + qsBtcPrice + " BTC at current market rate");
-
     if (amount->text().isEmpty()) {
         return QString();
     } else {
