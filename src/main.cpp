@@ -1039,15 +1039,6 @@ int64_t GetProofOfStakeRewardV2(int64_t nCoinAge, unsigned int nBits, unsigned i
     bnTarget.SetCompact(nBits);
     CBigNum bnTargetLimit = bnProofOfStakeLimit;
     bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
-
-    // BottleCaps: reward for coin-year is cut in half every 64x multiply of PoS difficulty
-    // A reasonably continuous curve is used to avoid shock to market
-    // (nRewardCoinYearLimit / nRewardCoinYear) ** 4 == bnProofOfStakeLimit / bnTarget
-    //
-    // Human readable form:
-    //
-    // nRewardCoinYear = 1 / (posdiff ^ 1/4)
-
     CBigNum bnLowerBound = 11 * CENT; // Lower interest bound is 11% per year
     CBigNum bnUpperBound = bnRewardCoinYearLimit;
     while (bnLowerBound + CENT <= bnUpperBound)
